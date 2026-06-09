@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reign Pelayo — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #060910;
+      --surface: #0d1117;
+      --surface2: #161b22;
+      --border: #21262d;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --purple: #a371f7;
+      --text: #e6edf3;
+      --muted: #7d8590;
+      --subtle: #484f58;
+      --max: 1200px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 56px;
+      background: rgba(6,9,16,0.85); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--accent);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo::before {
+      content: ''; display: inline-block; width: 8px; height: 8px;
+      background: var(--green); border-radius: 50%;
+      box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.825rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 7rem 3rem 4rem; max-width: var(--max); margin: 0 auto;
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 380px;
+      gap: 5rem; align-items: center; width: 100%;
+    }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--green);
+      letter-spacing: 0.1em; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-eyebrow::after { content: ''; width: 40px; height: 1px; background: var(--green); opacity: 0.5; }
+    h1 {
+      font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 700;
+      line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 1.25rem;
+    }
+    .hero-bio { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 2rem; }
+    .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.65rem 1.35rem; border-radius: 6px;
+      font-size: 0.875rem; font-weight: 500; font-family: 'Inter', sans-serif;
+      text-decoration: none; cursor: pointer; transition: all 0.2s; border: 1px solid transparent;
+    }
+    .btn-primary { background: var(--accent); color: #0d1117; border-color: var(--accent); }
+    .btn-primary:hover { background: #79c0ff; transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    /* HERO STATS PANEL */
+    .hero-stats-panel {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+    }
+    .hero-stats-panel-header {
+      background: var(--surface2); border-bottom: 1px solid var(--border);
+      padding: 0.875rem 1.5rem;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .hero-stat-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border);
+    }
+    .hero-stat-item:last-child { border-bottom: none; }
+    .hero-stat-label { font-size: 0.85rem; color: var(--muted); }
+    .hero-stat-val {
+      font-family: 'JetBrains Mono', monospace; font-size: 1.1rem;
+      font-weight: 600; color: var(--accent);
+    }
+
+    /* SECTION */
+    .section { padding: 5rem 3rem; max-width: var(--max); margin: 0 auto; }
+    .section-header { margin-bottom: 2.5rem; display: flex; align-items: flex-end; justify-content: space-between; }
+
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent);
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.4rem;
+    }
+    h2 { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; }
+    .section-line { width: 40px; height: 2px; background: var(--accent); margin-top: 0.6rem; border-radius: 1px; }
+
+    /* ABOUT — 3 cols */
+    .about-grid {
+      display: grid; grid-template-columns: 2fr 1.5fr 1.5fr; gap: 1rem;
+    }
+    .about-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.5rem;
+    }
+    .about-block-title {
+      font-size: 0.72rem; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;
+    }
+    .about-block p { font-size: 0.875rem; color: var(--muted); line-height: 1.8; }
+    .goal-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .goal-list li { font-size: 0.875rem; color: var(--muted); padding-left: 1.25rem; position: relative; line-height: 1.6; }
+    .goal-list li::before { content: '▸'; position: absolute; left: 0; color: var(--green); font-size: 0.75rem; }
+    .hobby-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .htag {
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--muted); font-size: 0.75rem;
+      padding: 0.25rem 0.65rem; border-radius: 20px;
+    }
+
+    /* SKILLS — 3 cols */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .skill-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.35rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .skill-card-icon { font-size: 1.4rem; margin-bottom: 0.6rem; }
+    .skill-card-title { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 0.75rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .tag {
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--muted); font-size: 0.7rem;
+      padding: 0.2rem 0.55rem; border-radius: 4px;
+    }
+
+    /* EXPERIENCE — side-by-side layout */
+    .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .exp-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.5rem;
+      transition: border-color 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .exp-card::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%; background: var(--border);
+      transition: background 0.2s;
+    }
+    .exp-card:hover { border-color: var(--accent); }
+    .exp-card:hover::before { background: var(--accent); }
+    .exp-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.35rem; gap: 1rem; }
+    .exp-role { font-size: 1rem; font-weight: 600; }
+    .exp-period {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+      color: var(--accent); white-space: nowrap; padding-top: 0.2rem;
+    }
+    .exp-type-badge {
+      display: inline-block; font-size: 0.65rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 0.15rem 0.5rem; border-radius: 3px; margin-bottom: 0.75rem;
+    }
+    .badge-intern { background: rgba(88,166,255,0.1); color: var(--accent); }
+    .badge-parttime { background: rgba(63,185,80,0.1); color: var(--green); }
+    .badge-leadership { background: rgba(163,113,247,0.1); color: var(--purple); }
+    .exp-company { font-size: 0.825rem; color: var(--muted); margin-bottom: 1rem; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .exp-bullets li { font-size: 0.835rem; color: var(--muted); line-height: 1.65; padding-left: 1rem; position: relative; }
+    .exp-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--subtle); }
+    .exp-highlight { color: var(--text); font-weight: 500; }
+
+    /* CERTS — 2 cols */
+    .certs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .cert-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.35rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: border-color 0.2s;
+    }
+    .cert-card:hover { border-color: var(--purple); }
+    .cert-badge {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: var(--surface2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .cert-name { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.2rem; }
+    .cert-issuer { font-size: 0.775rem; color: var(--muted); }
+
+    /* CONTACT — 4 cols */
+    .contact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .contact-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.35rem;
+      text-decoration: none; color: var(--text);
+      display: flex; align-items: center; gap: 0.875rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .contact-icon {
+      width: 38px; height: 38px; background: var(--surface2);
+      border: 1px solid var(--border); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .contact-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .contact-value { font-size: 0.825rem; font-weight: 500; margin-top: 0.1rem; word-break: break-all; }
+
+    /* DIVIDER */
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 2rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--subtle);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { gap: 1.25rem; }
+      .hero { padding: 6rem 1.5rem 3rem; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-stats-panel { display: none; }
+      .section { padding: 3.5rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .exp-grid { grid-template-columns: 1fr; }
+      .certs-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+    @media (max-width: 560px) {
+      .nav-links { display: none; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">reignjhovalle</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Open to opportunities</div>
+      <h1>Reign Jhovalle<br>Pelayo</h1>
+      <p class="hero-bio">
+        BS Information Technology graduate majoring in Information Security. Hands-on enterprise IT experience in endpoint deployment, hardware maintenance, security configuration, and IT asset management at Concentrix.
+      </p>
+      <div class="hero-actions">
+        <a href="mailto:reignpelayo10@gmail.com" class="btn btn-primary">✉ Get in touch</a>
+        <a href="https://www.linkedin.com/in/reignpelayo/" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+        <a href="https://github.com/reignjhovalle" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="hero-stats-panel">
+      <div class="hero-stats-panel-header">// internship highlights</div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-label">Devices Deployed</span>
+        <span class="hero-stat-val">50+</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-label">IT Assets Managed</span>
+        <span class="hero-stat-val">200+</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-label">Tickets Resolved / Week</span>
+        <span class="hero-stat-val">30+</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-label">Education</span>
+        <span class="hero-stat-val" style="font-size:0.8rem; text-align:right;">BS IT · InfoSec</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-label">Location</span>
+        <span class="hero-stat-val" style="font-size:0.8rem;">Lipa City, PH 🇵🇭</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider"/>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="section-eyebrow">// about</div>
+      <h2>About Me</h2>
+      <div class="section-line"></div>
+    </div>
+  </div>
+  <div class="about-grid">
+    <div class="about-block">
+      <div class="about-block-title">Background</div>
+      <p>Fresh IT graduate from De La Salle Lipa with a major in Information Security. My internship at Concentrix gave me real enterprise IT experience — from mass reimaging and hardware maintenance to security hardening and end-user support. I thrive in high-pressure environments and care deeply about getting the details right.</p>
+    </div>
+    <div class="about-block">
+      <div class="about-block-title">Goals</div>
+      <ul class="goal-list">
+        <li>Deepen expertise in cybersecurity, network defense, and ethical hacking</li>
+        <li>Earn industry certifications (CompTIA, Cisco, etc.)</li>
+        <li>Grow into IT infrastructure and security roles</li>
+        <li>Build strong analytical and problem-solving habits</li>
+      </ul>
+    </div>
+    <div class="about-block">
+      <div class="about-block-title">Interests</div>
+      <div class="hobby-tags">
+        <span class="htag">🎲 Tabletop RPGs</span>
+        <span class="htag">✍️ Creative Writing</span>
+        <span class="htag">🌍 Worldbuilding</span>
+        <span class="htag">🎤 Improv & Speaking</span>
+        <span class="htag">📚 Fiction & Mythology</span>
+        <span class="htag">🎌 Anime</span>
+        <span class="htag">🔮 Fantasy Lore</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- SKILLS -->
+<section class="section" id="skills">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="section-eyebrow">// skills</div>
+      <h2>Technical Skills</h2>
+      <div class="section-line"></div>
+    </div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-card-icon">🖥️</div>
+      <div class="skill-card-title">Hardware & Deployment</div>
+      <div class="tags">
+        <span class="tag">OS Imaging (Acronis)</span>
+        <span class="tag">BIOS / Secure Boot</span>
+        <span class="tag">RAM Upgrades</span>
+        <span class="tag">Component Repair</span>
+        <span class="tag">Peripheral Testing</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🔐</div>
+      <div class="skill-card-title">Security</div>
+      <div class="tags">
+        <span class="tag">YubiKey / MFA</span>
+        <span class="tag">Cybersecurity Fundamentals</span>
+        <span class="tag">VLAN Config</span>
+        <span class="tag">VPN Troubleshooting</span>
+        <span class="tag">Linux (Kali, Ubuntu)</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">⚙️</div>
+      <div class="skill-card-title">Systems & Infrastructure</div>
+      <div class="tags">
+        <span class="tag">Windows Server</span>
+        <span class="tag">Virtual Machines</span>
+        <span class="tag">Basic Networking</span>
+        <span class="tag">IPv4</span>
+        <span class="tag">LAN/WAN</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">📋</div>
+      <div class="skill-card-title">IT Operations</div>
+      <div class="tags">
+        <span class="tag">ITSM Ticketing</span>
+        <span class="tag">IT Asset Management</span>
+        <span class="tag">User Onboarding</span>
+        <span class="tag">SLA Management</span>
+        <span class="tag">Documentation</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🛠️</div>
+      <div class="skill-card-title">Tools & Platforms</div>
+      <div class="tags">
+        <span class="tag">Microsoft 365</span>
+        <span class="tag">Google Workspace</span>
+        <span class="tag">Git & GitHub</span>
+        <span class="tag">Power BI</span>
+        <span class="tag">Canva</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🤝</div>
+      <div class="skill-card-title">Soft Skills</div>
+      <div class="tags">
+        <span class="tag">Leadership</span>
+        <span class="tag">Team Collaboration</span>
+        <span class="tag">Conflict Resolution</span>
+        <span class="tag">Adaptability</span>
+        <span class="tag">Creative Thinking</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="section-eyebrow">// experience</div>
+      <h2>Work Experience</h2>
+      <div class="section-line"></div>
+    </div>
+  </div>
+  <div class="exp-grid">
+
+    <div class="exp-card">
+      <div class="exp-card-top">
+        <div class="exp-role">IT Support Intern</div>
+        <div class="exp-period">Jan – Apr 2026</div>
+      </div>
+      <span class="exp-type-badge badge-intern">Internship</span>
+      <div class="exp-company">Concentrix · Quezon City, Metro Manila</div>
+      <ul class="exp-bullets">
+        <li>Reimaged and deployed <span class="exp-highlight">50+ desktops/laptops</span> using IPv4 and Acronis with BIOS and Secure Boot configuration.</li>
+        <li>Resolved <span class="exp-highlight">30+ incidents per week</span> covering hardware, software, and connectivity issues — consistently meeting SLA targets.</li>
+        <li>Managed full IT asset lifecycle for <span class="exp-highlight">200+ pieces of equipment</span> including auditing, deploying, and documenting.</li>
+        <li>Performed hardware maintenance: RAM upgrades (8GB→16GB), component replacement, peripheral testing.</li>
+        <li>Supported new hire onboarding — provisioned workstations, authenticated YubiKey tokens, managed ITSM tickets.</li>
+      </ul>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-card-top">
+        <div class="exp-role">Clerical Assistant</div>
+        <div class="exp-period">Jun 2023 – May 2026</div>
+      </div>
+      <span class="exp-type-badge badge-parttime">Part-time</span>
+      <div class="exp-company">De La Salle Lipa · Lipa City, Batangas</div>
+      <ul class="exp-bullets">
+        <li>Managed record-keeping, documentation, and official communications; maintained physical files for compliance.</li>
+        <li>Coordinated office operations, monitored workflow, and supported staff in administrative tasks.</li>
+      </ul>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-card-top">
+        <div class="exp-role">Head of Creatives</div>
+        <div class="exp-period">2025 – 2026</div>
+      </div>
+      <span class="exp-type-badge badge-leadership">Leadership</span>
+      <div class="exp-company">Les Lasallian Lumieres · De La Salle Lipa</div>
+      <ul class="exp-bullets">
+        <li>Led creative team in designing publicity materials, event branding, and visual content.</li>
+        <li>Collaborated on event planning, creative direction, and provided technical/media support.</li>
+      </ul>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-card-top">
+        <div class="exp-role">Internal Coordinator II</div>
+        <div class="exp-period">2023 – 2024</div>
+      </div>
+      <span class="exp-type-badge badge-leadership">Leadership</span>
+      <div class="exp-company">Les Lasallian Lumieres · De La Salle Lipa</div>
+      <ul class="exp-bullets">
+        <li>Coordinated internal communications, streamlined officer collaboration, and maintained organizational records.</li>
+        <li>Assisted in planning and executing events; supported teamwork and delegation among members.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- CERTIFICATIONS -->
+<section class="section" id="certifications">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="section-eyebrow">// certifications</div>
+      <h2>Certifications</h2>
+      <div class="section-line"></div>
+    </div>
+  </div>
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-badge">📊</div>
+      <div>
+        <div class="cert-name">Smartbooks & Power BI Basic with Analytics</div>
+        <div class="cert-issuer">FIT Academy · De La Salle Lipa</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-badge">🤖</div>
+      <div>
+        <div class="cert-name">Digital Skills: Generative AI Fundamentals</div>
+        <div class="cert-issuer">Skills to Succeed Academy · Accenture</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-badge">💻</div>
+      <div>
+        <div class="cert-name">Digital Skills: Exploring Coding</div>
+        <div class="cert-issuer">Skills to Succeed Academy · Accenture</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-badge">📈</div>
+      <div>
+        <div class="cert-name">Digital Skills: Discovering Data</div>
+        <div class="cert-issuer">Skills to Succeed Academy · Accenture</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-header">
+    <div class="section-title-group">
+      <div class="section-eyebrow">// contact</div>
+      <h2>Get In Touch</h2>
+      <div class="section-line"></div>
+    </div>
+  </div>
+  <div class="contact-grid">
+    <a href="mailto:reignpelayo10@gmail.com" class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value">reignpelayo10@gmail.com</div>
+      </div>
+    </a>
+    <a href="tel:+639633892972" class="contact-card">
+      <div class="contact-icon">📱</div>
+      <div>
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">(+63) 963 389 2972</div>
+      </div>
+    </a>
+    <a href="https://www.linkedin.com/in/reignpelayo/" target="_blank" class="contact-card">
+      <div class="contact-icon">🔗</div>
+      <div>
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value">in/reignpelayo</div>
+      </div>
+    </a>
+    <div class="contact-card" style="cursor:default;">
+      <div class="contact-icon">📍</div>
+      <div>
+        <div class="contact-label">Location</div>
+        <div class="contact-value">Lipa City, Batangas 🇵🇭</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Reign Jhovalle C. Pelayo</span>
+  <span>Built with GitHub Pages</span>
+</footer>
+
+</body>
+</html>
